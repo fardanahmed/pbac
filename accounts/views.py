@@ -15,4 +15,8 @@ def approve_expense(request, expense_id):
 @login_required
 def expense_list(request):
     expenses = Expenses.objects.select_related('staff__user', 'customer').all()
-    return render(request, 'expense_list.html', {'expenses': expenses})
+    total_amount = sum(expense.amount for expense in expenses)
+    return render(request, 'expense_list.html', {
+        'expenses': expenses,
+        'total_amount': total_amount
+    })
