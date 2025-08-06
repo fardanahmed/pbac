@@ -5,37 +5,55 @@
 {% block content %}
 <div style="max-width: 800px; margin: 0 auto;">
     <div class="card">
-        <div style="display: flex; align-items: center; margin-bottom: 2rem;">
-            <a href="{% url 'expense_list' %}" style="color: #667eea; text-decoration: none; margin-right: 1rem;">
-                ← Back to Expenses
+        <!-- Navigation breadcrumb -->
+        <div
+            style="background: #f8f9fa; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #667eea;">
+            <a href="{% url 'expense_list' %}"
+                style="color: #667eea; text-decoration: none; font-size: 14px; display: flex; align-items: center;">
+                <span style="margin-right: 0.5rem;">←</span>
+                Back to Expense List
             </a>
-            <h1 style="color: #333; margin: 0;">Expense Approval</h1>
+        </div>
+
+        <!-- Page title -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="color: #333; margin: 0; font-size: 2rem;">Expense Review & Approval</h1>
+            <p style="color: #666; margin-top: 0.5rem;">Review the expense details and take appropriate action</p>
         </div>
 
         <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
                 <div>
-                    <h3 style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Staff Member</h3>
+                    <h3
+                        style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                        Staff Member</h3>
                     <div style="font-size: 18px; font-weight: 600; margin-bottom: 0.25rem;">{{ expense.staff }}</div>
                     <div style="color: #666; font-size: 14px;">{{ expense.staff.position }}</div>
                     <div style="color: #666; font-size: 14px;">ID: {{ expense.staff.employee_id }}</div>
                 </div>
 
                 <div>
-                    <h3 style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Amount</h3>
+                    <h3
+                        style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                        Amount</h3>
                     <div style="font-size: 24px; font-weight: bold; color: #28a745;">${{ expense.amount }}</div>
                 </div>
 
                 <div>
-                    <h3 style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Date</h3>
+                    <h3
+                        style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                        Date</h3>
                     <div style="font-size: 16px; font-weight: 500;">{{ expense.date_incurred|date:"F d, Y" }}</div>
                     {% if expense.created_at %}
-                    <div style="color: #666; font-size: 14px;">Created: {{ expense.created_at|date:"M d, Y g:i A" }}</div>
+                    <div style="color: #666; font-size: 14px;">Created: {{ expense.created_at|date:"M d, Y g:i A" }}
+                    </div>
                     {% endif %}
                 </div>
 
                 <div>
-                    <h3 style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Status</h3>
+                    <h3
+                        style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                        Status</h3>
                     <span class="status-badge status-{{ expense.status }}" style="font-size: 14px;">
                         {{ expense.get_status_display }}
                     </span>
@@ -44,14 +62,18 @@
 
             {% if expense.customer %}
             <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #dee2e6;">
-                <h3 style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Customer</h3>
+                <h3
+                    style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                    Customer</h3>
                 <div style="font-size: 16px; font-weight: 500;">{{ expense.customer.name }}</div>
                 <div style="color: #666; font-size: 14px;">{{ expense.customer.email }}</div>
             </div>
             {% endif %}
 
             <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #dee2e6;">
-                <h3 style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Description</h3>
+                <h3
+                    style="color: #667eea; margin-bottom: 0.5rem; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                    Description</h3>
                 <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e1e5e9;">
                     {{ expense.description|linebreaks }}
                 </div>
@@ -59,60 +81,150 @@
         </div>
 
         {% if expense.status == 'pending' %}
-            <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
-                <h3 style="color: #856404; margin-bottom: 1rem; display: flex; align-items: center;">
-                    <span style="margin-right: 0.5rem;">⚠️</span>
-                    Approval Required
-                </h3>
-                <p style="color: #856404; margin-bottom: 1.5rem;">
-                    This expense is pending approval. Review the details above and approve or reject as appropriate.
-                </p>
-                
-                <form method="post" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success" style="display: flex; align-items: center;">
-                        <span style="margin-right: 0.5rem;">✓</span>
-                        Approve Expense
-                    </button>
-                    <a href="{% url 'expense_list' %}" class="btn btn-secondary">
-                        Cancel
-                    </a>
-                </form>
-            </div>
-        {% else %}
-            <div class="alert alert-info">
-                <strong>Status Update:</strong> This expense has already been <strong>{{ expense.status }}</strong>.
-                {% if expense.updated_at %}
-                    <br><small>Last updated: {{ expense.updated_at|date:"F d, Y g:i A" }}</small>
-                {% endif %}
-            </div>
-            
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="{% url 'expense_list' %}" class="btn btn-primary">
-                    Back to Expense List
+        <div
+            style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+            <h3 style="color: #856404; margin-bottom: 1rem; display: flex; align-items: center;">
+                <span style="margin-right: 0.5rem;">⚠️</span>
+                Approval Required
+            </h3>
+            <p style="color: #856404; margin-bottom: 1.5rem;">
+                This expense is pending approval. Review the details above and choose to approve or reject this expense.
+            </p>
+
+            <div class="action-buttons"
+                style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <!-- Action buttons group (left side) -->
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <form method="post" style="display: inline-block;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="approve">
+                        <button type="submit" class="btn btn-success"
+                            style="display: flex; align-items: center; white-space: nowrap;">
+                            <span style="margin-right: 0.5rem;">✓</span>
+                            Approve Expense
+                        </button>
+                    </form>
+
+                    <form method="post" style="display: inline-block;">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="reject">
+                        <button type="submit" class="btn btn-reject"
+                            style="display: flex; align-items: center; white-space: nowrap;"
+                            onclick="return confirm('Are you sure you want to reject this expense? This action cannot be undone.')">
+                            <span style="margin-right: 0.5rem;">✗</span>
+                            Reject Expense
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Cancel button (right side) -->
+                <a href="{% url 'expense_list' %}" class="btn btn-cancel"
+                    style="white-space: nowrap; display: flex; align-items: center;">
+                    <span style="margin-right: 0.5rem;">←</span>
+                    Cancel
                 </a>
             </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <strong>Status Update:</strong> This expense has already been <strong>{{ expense.status }}</strong>.
+        {% if expense.updated_at %}
+        <br><small>Last updated: {{ expense.updated_at|date:"F d, Y g:i A" }}</small>
         {% endif %}
     </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="{% url 'expense_list' %}" class="btn btn-primary">
+            Back to Expense List
+        </a>
+    </div>
+    {% endif %}
+</div>
 </div>
 
 <style>
+    .btn-reject {
+        background: #dc3545 !important;
+        color: white !important;
+        transition: all 0.3s ease;
+    }
+
+    .btn-reject:hover {
+        background: #c82333 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+    }
+
+    .btn-cancel {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+        color: #495057 !important;
+        border: 2px solid #dee2e6 !important;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .btn-cancel:hover {
+        background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%) !important;
+        color: #212529 !important;
+        border-color: #adb5bd !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .action-buttons {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 1rem !important;
+    }
+
+    .action-buttons>div {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .action-buttons form {
+        display: inline-block !important;
+        margin: 0 !important;
+    }
+
+    .action-buttons .btn {
+        margin: 0 !important;
+        min-width: 140px;
+    }
+
     @media (max-width: 768px) {
         .card {
             padding: 1rem;
         }
-        
-        .grid {
-            grid-template-columns: 1fr;
+
+        .action-buttons {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 1rem !important;
         }
-        
-        form {
-            flex-direction: column;
-        }
-        
-        .btn {
+
+        .action-buttons>div {
             width: 100%;
             justify-content: center;
+        }
+
+        .action-buttons form {
+            flex: 1;
+        }
+
+        .action-buttons .btn {
+            width: 100% !important;
+            justify-content: center !important;
+            min-width: auto !important;
+        }
+
+        .btn-cancel {
+            order: -1;
+            margin-bottom: 0.5rem;
         }
     }
 </style>

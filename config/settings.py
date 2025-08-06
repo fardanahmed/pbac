@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'rules'
 ]
 
 MIDDLEWARE = [
@@ -44,7 +43,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'config.urls'
 
 AUTHENTICATION_BACKENDS = (
-    'rules.permissions.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
     'accounts.backends.EmailBackend',
 )

@@ -7,7 +7,11 @@ from .models import Expenses
 def approve_expense(request, expense_id):
     expense = get_object_or_404(Expenses, id=expense_id)
     if request.method == 'POST' and expense.status == 'pending':
-        expense.status = 'approved'
+        action = request.POST.get('action')
+        if action == 'approve':
+            expense.status = 'approved'
+        elif action == 'reject':
+            expense.status = 'rejected'
         expense.save()
         return redirect('expense_list')
     return render(request, 'approve_expense.html', {'expense': expense})
