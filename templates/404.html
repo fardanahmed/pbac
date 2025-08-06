@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found - PBAC{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 4rem auto; text-align: center;">
+    <div class="card">
+        <div style="font-size: 6rem; margin-bottom: 1rem; opacity: 0.3;">🔍</div>
+        <h1 style="color: #667eea; margin-bottom: 1rem; font-size: 2.5rem;">Page Not Found</h1>
+        
+        <p style="color: #666; font-size: 18px; margin-bottom: 2rem;">
+            Sorry, the page you're looking for doesn't exist or has been moved.
+        </p>
+
+        <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+            <h3 style="color: #333; margin-bottom: 1rem;">What can you do?</h3>
+            <ul style="text-align: left; color: #666; line-height: 1.8; list-style: none; padding: 0;">
+                <li style="margin-bottom: 0.5rem;">🏠 Go back to the homepage</li>
+                <li style="margin-bottom: 0.5rem;">📋 Check the expense list</li>
+                <li style="margin-bottom: 0.5rem;">⚙️ Visit the admin panel</li>
+                <li>🔍 Use the navigation menu above</li>
+            </ul>
+        </div>
+
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'expense_list' %}" class="btn btn-primary">
+                View Expenses
+            </a>
+            <a href="/admin/" class="btn btn-secondary">
+                Admin Panel
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

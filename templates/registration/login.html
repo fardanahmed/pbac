@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; }
+        form { background: #f9f9f9; padding: 20px; border-radius: 5px; }
+        input[type="email"], input[type="password"] { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 3px; }
+        button { background: #007cba; color: white; padding: 10px 20px; border: none; border-radius: 3px; cursor: pointer; width: 100%; }
+        button:hover { background: #005a87; }
+        .links { text-align: center; margin-top: 15px; }
+        .links a { color: #007cba; text-decoration: none; }
+        .links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <h2>Login</h2>
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+        <div class="links">
+            <a href="{% url 'password_reset' %}">Forgot your password?</a>
+        </div>
+    </form>
+</body>
+</html>
