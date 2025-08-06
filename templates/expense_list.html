@@ -44,9 +44,11 @@
                         </td>
                         <td>
                             <div>{{ expense.date_incurred|date:"M d, Y" }}</div>
+                            {% if expense.created_at %}
                             <div style="font-size: 12px; color: #666;">
                                 Created: {{ expense.created_at|date:"M d" }}
                             </div>
+                            {% endif %}
                         </td>
                         <td>
                             {% if expense.customer %}
