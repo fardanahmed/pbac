@@ -21,13 +21,15 @@ A Django application implementing policy-based access control for expense manage
 - **Database Indexing** — Compound indexes on status/date and staff/status for query optimization
 - **Password Recovery** — Full password reset flow with email confirmation
 
-## Data Models
+## 🏗️ Architecture & Data Models
 
-```
-CustomUser ──┐
-             ├── Staff ──── Expenses ──── Customer
-             │              (status workflow)
-             └── (PermissionsMixin for RBAC)
+```mermaid
+erDiagram
+    CustomUser ||--o| Staff : has_profile
+    CustomUser ||--o| Customer : has_profile
+    CustomUser ||--o{ Expenses : creates
+    Staff ||--o{ Expenses : reviews
+    Customer ||--o{ Expenses : incurs
 ```
 
 - **CustomUser** — Email-based auth with `CustomUserManager`
