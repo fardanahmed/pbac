@@ -1,6 +1,6 @@
-# PBAC — Policy-Based Access Control & Expense Management
+# PBAC: policy-based access control and expense approvals
 
-A Django application implementing policy-based access control for expense management workflows. Features custom user authentication, role-based permissions, approval workflows, and database-level indexing for query performance.
+A Django app with policy-based access control and an expense approval workflow (approve, reject, cancel). Custom email-based users, role permissions, approval state transitions and database indexes for the expense queries.
 
 ## Tech Stack
 
@@ -21,7 +21,7 @@ A Django application implementing policy-based access control for expense manage
 - **Database Indexing** — Compound indexes on status/date and staff/status for query optimization
 - **Password Recovery** — Full password reset flow with email confirmation
 
-## 🏗️ Architecture & Data Models
+## Architecture and data models
 
 ```mermaid
 erDiagram
@@ -82,4 +82,4 @@ pbac/
 
 ## License
 
-MIT
+MIT, see [LICENSE](LICENSE).
