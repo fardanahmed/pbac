@@ -7,7 +7,7 @@ A Django app with policy-based access control and an expense approval workflow (
 | Layer | Technology |
 |-------|-----------|
 | Framework | Django 5.x |
-| Database | SQLite (dev) / PostgreSQL (prod) |
+| Database | SQLite (the only engine configured in settings.py) |
 | Auth | Custom User Model (AbstractBaseUser) |
 | Permissions | Django's built-in permission framework + custom policies |
 | Templates | Django Template Language |
